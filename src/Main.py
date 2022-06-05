@@ -2,6 +2,8 @@ import VendingMachine
 import Products
 import Coins
 
+leave_program = False
+
 
 def select_option(n_option):
     match n_option:
@@ -11,13 +13,18 @@ def select_option(n_option):
         case 2:
             VendingMachine.to_sell(Products.arr_products, Coins.arr_coins)
             return
+        case 3:
+            global leave_program
+            leave_program = True
+            print("Leaving...")
+            return
         case _:
             print("Error, option is not valid!\n")
             return
 
 
-while True:
-    strOptions = "CHOICE ONE OPTION:\n\n1. To get list of products\n2. Buy product\n>> "
+while not leave_program:
+    strOptions = "CHOICE ONE OPTION:\n\n1. To get list of products\n2. Buy product\n3. Exit\n>> "
     nOption = int(input(strOptions))
 
     select_option(nOption)

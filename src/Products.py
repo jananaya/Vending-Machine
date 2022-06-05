@@ -1,22 +1,24 @@
-from asyncio.windows_events import NULL
+import asyncio.windows_events
 
 import JsonFile
 
 PATH = "../data/products.json"
 
-arrProducts = JsonFile.read(PATH)
+arr_products = JsonFile.read(PATH)
 
-def searchProductByTag(arrProducts, strTag):
-    for product in arrProducts:
-        if product["tag"] == strTag:
+
+def search_product_by_tag(arr, str_tag):
+    for product in arr:
+        if product["tag"] == str_tag:
             return product
 
-    return NULL
+    return asyncio.windows_events.NULL
 
-def updateProduct(product):
-    for i, _product in enumerate(arrProducts):
+
+def update_product(product):
+    for i, _product in enumerate(arr_products):
         if _product["tag"] == product["tag"]:
-            arrProducts[i] = product
-            return JsonFile.update(PATH, arrProducts)
-    
+            arr_products[i] = product
+            return JsonFile.update(PATH, arr_products)
+
     return False

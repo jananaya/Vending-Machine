@@ -2,41 +2,41 @@ import JsonFile
 
 PATH = "../data/coins.json"
 
-arrCoins = JsonFile.read(PATH)
+arr_coins = JsonFile.read(PATH)
 
 
-def sortByDenominationDes(arrAvaibleCoins):
-    return sorted(arrAvaibleCoins, key=lambda x: x["denomination"], reverse=False)
+def sort_by_denomination(arr_available_coins):
+    return sorted(arr_available_coins, key=lambda x: x["denomination"], reverse=False)
 
 
-def searchCoinByDenomination(nDenomination):
-    for i in range(len(arrCoins)):
-        if arrCoins[i]["denomination"] == nDenomination:
+def search_coin_by_denomination(n_denomination):
+    for i in range(len(arr_coins)):
+        if arr_coins[i]["denomination"] == n_denomination:
             return i
 
     return -1
 
 
-def updateCoinsQuantity(arrLostCoins):
-    for lostCoin in arrLostCoins:
-        coinIndex = searchCoinByDenomination(lostCoin["denomination"])
+def update_coins_quantity(arr_lost_coins):
+    for lostCoin in arr_lost_coins:
+        coin_index = search_coin_by_denomination(lostCoin["denomination"])
 
-        if (coinIndex == -1):
+        if coin_index == -1:
             continue
 
-        c = arrCoins[coinIndex]
+        c = arr_coins[coin_index]
         c["quantity"] -= lostCoin["quantity"]
-        arrCoins[coinIndex] = c
+        arr_coins[coin_index] = c
 
-        JsonFile.update(PATH, arrCoins)
+        JsonFile.update(PATH, arr_coins)
 
 
-def updateCoin(coin):
-    coinIndex = searchCoinByDenomination(coin["denomination"])
+def update_coin(coin):
+    coin_index = search_coin_by_denomination(coin["denomination"])
 
-    if coinIndex == -1:
+    if coin_index == -1:
         return False
 
-    arrCoins[coinIndex] = coin
+    arr_coins[coin_index] = coin
 
-    return JsonFile.update(PATH, arrCoins)
+    return JsonFile.update(PATH, arr_coins)

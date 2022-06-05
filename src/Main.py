@@ -3,21 +3,21 @@ import Products
 import Coins
 
 
-def selectOption(nOption):
-    match nOption:
+def select_option(n_option):
+    match n_option:
         case 1:
-            print(Products.arrProducts)
+            print(Products.arr_products)
             return
         case 2:
-            VendingMachine.toSell(Products.arrProducts, Coins.arrCoins)
+            VendingMachine.to_sell(Products.arr_products, Coins.arr_coins)
             return
         case _:
             print("Error, option is not valid!\n")
             return
 
 
-while (True):
+while True:
     strOptions = "CHOICE ONE OPTION:\n\n1. To get list of products\n2. Buy product\n>> "
     nOption = int(input(strOptions))
 
-    selectOption(nOption)
+    select_option(nOption)

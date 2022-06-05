@@ -1,75 +1,73 @@
-from asyncio.windows_events import NULL
+import asyncio.windows_events
 import math
 
 import Coins
 import Products
 
-def returnChange(productValue, nMoney, arrAvaibleCoins):
+
+def return_change(n_product_value, n_money, arr_available_coins):
     change = {
-        "value": nMoney - productValue,
+        "value": n_money - n_product_value,
         "coins": []
     }
 
-    coinStack = Coins.sortByDenominationDes(arrAvaibleCoins)
-    moneyToReturn = change["value"]
+    coins_stack = Coins.sort_by_denomination(arr_available_coins)
+    money_to_return = change["value"]
 
-    while moneyToReturn > 0 and coinStack:
-        machineCoin = coinStack.pop()
+    while money_to_return > 0 and coins_stack:
+        machine_coin = coins_stack.pop()
 
-        denomination = machineCoin["denomination"]
-        
-        quantity = math.trunc(moneyToReturn / denomination)
-        
-        quantityOnMachine = machineCoin["quantity"]
+        denomination = machine_coin["denomination"]
+
+        quantity = math.trunc(money_to_return / denomination)
+
+        quantity_on_machine = machine_coin["quantity"]
 
         if quantity > 0:
-            if quantity > quantityOnMachine:
-                quantity = quantityOnMachine
+            if quantity > quantity_on_machine:
+                quantity = quantity_on_machine
 
-            userCoin = {
+            user_coin = {
                 "quantity": quantity,
                 "denomination": denomination
             }
-            change["coins"].append(userCoin)
-            moneyToReturn -= quantity * denomination
+            change["coins"].append(user_coin)
+            money_to_return -= quantity * denomination
 
     return change
 
 
-def toSell(arrProducts, arrAvaibleCoins):
-    strProductTag = input('Enter product tag: ')
+def to_sell(arr_products, arr_available_coins):
+    str_product_tag = input("Enter product tag: ")
 
-    product = Products.searchProductByTag(arrProducts, strProductTag)
+    product = Products.search_product_by_tag(arr_products, str_product_tag)
 
-    if product == NULL:
+    if product == asyncio.windows_events.NULL:
         print(
-            f"Error, the product with tag \"{strProductTag}\" doesn't exist!")
+            f"Error, the product with tag \"{str_product_tag}\" doesn't exist!")
         return
 
-    nMoney = int(input('Enter money: '))
-    productValue = product['value']
+    n_money = int(input("Enter money: "))
+    n_product_value = product["value"]
 
-    if productValue > nMoney:
+    if n_product_value > n_money:
         print("Error, the money is not enough!\n")
         return
 
-    
-
-    change = returnChange(productValue, nMoney, arrAvaibleCoins)
+    change = return_change(n_product_value, n_money, arr_available_coins)
 
     print(f"The change is {change['value']}\n")
 
     product["quantity"] -= 1
 
-    if not Products.updateProduct(product):
-        print("Error inesperado!")
+    if not Products.update_product(product):
+        print("Unexpected error!")
         return
 
-    coins = change['coins']
+    coins = change["coins"]
 
     for coin in coins:
-        quantity = coin['quantity']
-        message = ""
+        quantity = coin["quantity"]
 
         if quantity == 1:
             message = f"1 coin of {coin['denomination']}"
@@ -78,4 +76,4 @@ def toSell(arrProducts, arrAvaibleCoins):
 
         print(message)
 
-    Coins.updateCoinsQuantity(coins)
+    Coins.update_coins_quantity(coins)

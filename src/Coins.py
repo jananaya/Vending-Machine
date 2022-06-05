@@ -1,6 +1,6 @@
 import JsonFile
 
-PATH = "./data/coins.json"
+PATH = "../data/coins.json"
 
 arrCoins = JsonFile.read(PATH)
 

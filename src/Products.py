@@ -2,7 +2,7 @@ from asyncio.windows_events import NULL
 
 import JsonFile
 
-PATH = "./data/products.json"
+PATH = "../data/products.json"
 
 arrProducts = JsonFile.read(PATH)
 

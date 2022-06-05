@@ -24,7 +24,7 @@ def select_option(n_option):
 
 
 while not leave_program:
-    strOptions = "CHOICE ONE OPTION:\n\n1. To get list of products\n2. Buy product\n3. Exit\n>> "
-    nOption = int(input(strOptions))
+    str_options = "CHOICE ONE OPTION:\n\n1. To get list of products\n2. Buy product\n3. Exit\n>> "
+    n_option = int(input(str_options))
 
-    select_option(nOption)
+    select_option(n_option)
